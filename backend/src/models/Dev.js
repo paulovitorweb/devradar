@@ -13,4 +13,9 @@ const DevSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Dev', DevSchema)
+module.exports = {
+    Dev: mongoose.model('Dev', DevSchema),
+    checkId: function (id) {
+        return mongoose.Types.ObjectId.isValid(id)
+    }
+}
