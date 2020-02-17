@@ -12,6 +12,18 @@ module.exports = {
     return response.json(devs);
   },
 
+  // Mostra os dados de um registro
+  async show(request, response) {
+    const { _id } = request.body;
+    // Verifica se é um id válido para o mongodb
+    if(checkId(_id)) {
+      const dev = await Dev.findById(_id);
+      return response.json(dev);
+    } else {
+      return response.send("O id fornecido não é válido.");
+    }
+  },
+
   // Cadastra e retorna o registro
   async store(request, response) {
     const { github_username, techs, latitude, longitude } = request.body;
