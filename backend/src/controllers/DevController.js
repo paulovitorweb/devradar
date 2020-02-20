@@ -58,7 +58,8 @@ module.exports = {
   // Deleta um registro
   async destroy(request, response) {
     const { _id } = request.body;
-      
+    // Verifica se é um id válido para o mongodb
+    if(checkId(_id)) {
       Dev.findOneAndDelete({ _id }, function (err) {
         if(err) {
           return response.send(err);
@@ -66,6 +67,9 @@ module.exports = {
           return response.send("Usuário deletado com sucesso.");
         }
       });
+    } else {
+      return response.send("O id fornecido não é válido.");
+    }
   },
 
   // Atualiza um registro
